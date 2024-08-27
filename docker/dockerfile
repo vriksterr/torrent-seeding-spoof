@@ -1,0 +1,23 @@
+#Linux
+
+
+# Use a base image with the necessary environment
+FROM ubuntu:20.04
+
+# Install any necessary dependencies for your C++ executable
+RUN apt-get update && apt-get install -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create a directory for your application
+WORKDIR /app
+
+# Copy your C++ executable and any other necessary files into the image
+COPY fakeseed /app/
+COPY ratio-spoof /app/
+
+# Make the executable files executable
+RUN chmod +x /app/fakeseed
+RUN chmod +x /app/ratio-spoof
+
+# Specify the command to run your executable
+ENTRYPOINT ["/app/fakeseed"]
